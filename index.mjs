@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import router from './routers/routers.mjs';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-
+import passport from 'passport';
 
 const app = express();
 
@@ -22,6 +22,9 @@ app.use(session({
     }
 }));
 
+// app.use(passport.initialize())
+
+// app.use(passport.session())
 
 app.use('/', router);
 

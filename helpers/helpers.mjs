@@ -2,10 +2,10 @@ import bcrypt  from 'bcrypt';
 
 const saltRounds = 10;
 
-export const hashPassword = async (password) => {
+export const hashPassword =  (password) => {
     try {
-        const salt = await bcrypt.genSalt(saltRounds);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const salt =  bcrypt.genSaltSync(saltRounds);
+        const hashedPassword =  bcrypt.hashSync(password, salt);
         return hashedPassword;
     } catch (error) {
         console.error('Error occurred during password hashing:', error);
@@ -13,6 +13,6 @@ export const hashPassword = async (password) => {
     }
 }
 
-export const comparePassword = async (plain, hashed) => {
-    return await bcrypt.compare(plain,hashed)
+export const comparePassword =  (plain, hashed) => {
+    return  bcrypt.compareSync(plain,hashed)
 }

@@ -1,5 +1,5 @@
 import { User } from "../Schema/user-schema.mjs";
-import { comparePassword, hashPassword } from "../helpers/helpers.mjs";
+import { comparePassword} from "../helpers/helpers.mjs";
 
 const userRegister = (async (req, res) => {
     const { body } = req;
@@ -18,16 +18,11 @@ const userLogin = (async (req, res) => {
     const { username, password } = req.body;
     try {
         const findUser = await User.findOne({ username: username });
-        try {
-            var passwordMatched = await comparePassword(password , findUser.password)
-        } catch (error) {
-            console.log(error);
-            res.send({Message : "Couldn't login"})
-        }
+        var passwordMatched = comparePassword(password, findUser.password)
         if (!passwordMatched)
             return res.status(400).send({ Message: "Bad Credentials!" });
         req.session.user = findUser;
-        res.status(200).send({Message : "User Logged In !"});
+        res.status(200).send({ Message: "User Logged in successfully!!" });
     } catch (error) {
         console.log(error)
         res.Status(500).send(error)
