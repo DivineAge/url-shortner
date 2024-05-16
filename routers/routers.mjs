@@ -4,10 +4,17 @@ import setUrl from "../controller/url.controller.mjs";
 import { body } from "express-validator";
 import { isUsenameTaken } from '../middlewares/isUserNameTaken.mjs'
 import { passwordHash } from "../middlewares/passwordHash.mjs";
+import '../auth/local-strategy.mjs'
+import passport from "passport";
+import logOut from "../controller/logout.controller.mjs";
+import isLoggedIn from "../middlewares/isLoggedIn.mjs";
+
+
 const router = express.Router();
 
-router.post('/register', isUsenameTaken, passwordHash, userRegister);
-router.post('/login', userLogin);
-router.post('/shorten-url', body('longUrl').isURL().withMessage("Invalid url"), setUrl);
+router.post('/register', body('email').isEmail().withMessage("Invalid email"), isUsenameTaken, passwordHash, userRegister);
+router.post('/login', passport.authenticate('local'), userLogin);
+router.post('/url-shortner', isLoggedIn, body('longUrl').isURL().withMessage("Invalid url"), setUrl);
+router.get('/logout', isLoggedIn, logOut)
 
 export default router;  

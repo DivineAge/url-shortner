@@ -19,11 +19,8 @@ async function generateRandomString() {
 }
 
 const setUrl = async (req, res) => {
+    
     const result = validationResult(req);
-
-    // if (!req.session.user)
-    //     return res.status(401).send({ Message: "User not logged in!" })
-
     if (!result.isEmpty()) return res.status(400).send({ erros : result.array() })
 
     const { body } = req;
