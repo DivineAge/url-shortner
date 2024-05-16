@@ -10,6 +10,12 @@ const urlSchema = mongoose.Schema({
         required: true,
         unique : true,
     },
+    random:{
+        type: String,
+        required: true,
+        unique : true,
+    },
+
 })
 
 export const url = mongoose.model("url",urlSchema)
