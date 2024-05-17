@@ -1,7 +1,6 @@
 import express from "express";
 import { userLogin, userRegister } from "../controller/user.controller.mjs";
-import { getUrls, setUrl } from '../controller/url.controller.mjs';
-
+import { setUrl, getUrls } from '../controller/url.controller.mjs'
 import { body } from "express-validator";
 import { isUsenameTaken } from '../middlewares/isUserNameTaken.mjs'
 import { passwordHash } from "../middlewares/passwordHash.mjs";
