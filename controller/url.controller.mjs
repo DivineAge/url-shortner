@@ -20,7 +20,7 @@ export const setUrl = async (req, res) => {
     const urls = new url(info)
     try {
         await urls.save();
-        return res.sendStatus(201);
+        res.status(201).json({message : "Omak", data :{ shortUrl ,longUrl : body.longUrl}})
     } catch (error) {
         console.log(error);
         res.sendStatus(500)
@@ -31,7 +31,7 @@ export const getUrls = async (req, res) => {
     try {
         const urls = await url.find();
         const result = urls.map(({ longUrl, shortUrl }) => ({ longUrl, shortUrl }));
-        res.status(200).send(result);
+        res.status(200).json(result);
     } catch (error) {
         console.log(error)
         res.status(400).send(error)

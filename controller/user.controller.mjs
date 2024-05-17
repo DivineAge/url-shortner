@@ -4,7 +4,7 @@ import { comparePassword } from "../helpers/helpers.mjs";
 
 const userRegister = (async (req, res) => {
     const result = validationResult(req);
-    if(!result.isEmpty()) res.status(400).send({Message : "Please enter a valid email!"})
+    if(!result.isEmpty()) res.status(400).send({message : "Please enter a valid email!"})
     const { body } = req;
     const newUser = await new User(body);
     try {
@@ -17,7 +17,7 @@ const userRegister = (async (req, res) => {
 })
 
 const userLogin = (async (req, res) => {
-    res.status(200).send({ Message: "User Logged in successfully!!" });
+    res.status(200).send({ message: "User Logged in successfully!!" });
 })
 
 export {

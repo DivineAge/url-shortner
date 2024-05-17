@@ -8,6 +8,6 @@ export const passwordHash =  (req,res,next)=>{
         next();
     } catch (error) {
         console.log(error);
-        return res.status(500).send({Message : "Password didn't hash"})
+        return res.status(500).send({message : "Password didn't hash"})
     }
 }

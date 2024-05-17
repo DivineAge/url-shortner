@@ -5,7 +5,7 @@ export const isUsenameTaken = async (req, res, next) => {
     try {
         const {body} = req;
         const taken = await User.findOne({ username: body.username });
-        if (taken) return res.status(400).send({ Message: "UserName is taken!" })
+        if (taken) return res.status(400).send({ message: "UserName is taken!" })
         next();
     } catch (error) {
         console.log(error)
