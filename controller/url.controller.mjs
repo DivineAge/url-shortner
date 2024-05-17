@@ -3,9 +3,9 @@ import { validationResult } from "express-validator";
 import generateRandomString from "../helpers/randomStringGenerator.mjs";
 
 
-const setUrl = async (req, res) => {
+export const setUrl = async (req, res) => {
     const result = validationResult(req);
-    if (!result.isEmpty()) return res.status(400).send({ erros : result.array() })
+    if (!result.isEmpty()) return res.status(400).send({ erros: result.array() })
 
     const { body } = req;
     const random = await generateRandomString();
@@ -14,7 +14,7 @@ const setUrl = async (req, res) => {
     const info = {
         shortUrl: shortUrl,
         longUrl: body.longUrl,
-        random : random
+        random: random
     }
 
     const urls = new url(info)
@@ -27,5 +27,15 @@ const setUrl = async (req, res) => {
     }
 }
 
+export const getUrls = async (req, res) => {
+    try {
+        const urls = await url.find();
+        const result = urls.map(({ longUrl, shortUrl }) => ({ longUrl, shortUrl }));
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(error)
+    }
 
-export default setUrl;
+}
+

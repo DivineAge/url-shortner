@@ -1,6 +1,7 @@
 import express from "express";
 import { userLogin, userRegister } from "../controller/user.controller.mjs";
-import setUrl from "../controller/url.controller.mjs";
+import { getUrls, setUrl } from '../controller/url.controller.mjs';
+
 import { body } from "express-validator";
 import { isUsenameTaken } from '../middlewares/isUserNameTaken.mjs'
 import { passwordHash } from "../middlewares/passwordHash.mjs";
@@ -16,5 +17,6 @@ router.post('/register', body('email').isEmail().withMessage("Invalid email"), i
 router.post('/login', passport.authenticate('local'), userLogin);
 router.post('/url-shortner', isLoggedIn, body('longUrl').isURL().withMessage("Invalid url"), setUrl);
 router.get('/logout', isLoggedIn, logOut)
+router.get('/urls', isLoggedIn, getUrls)
 
 export default router;  
