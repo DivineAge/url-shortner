@@ -20,7 +20,7 @@ export const setUrl = async (req, res) => {
     const urls = new url(info)
     try {
         await urls.save();
-        res.status(201).json({message : "Url created successfuly!", data :{ shortUrl ,longUrl : body.longUrl}})
+        res.status(201).json({ message: "Url created successfuly!", data: { shortUrl, longUrl: body.longUrl } })
     } catch (error) {
         console.log(error);
         res.sendStatus(500)
@@ -28,8 +28,10 @@ export const setUrl = async (req, res) => {
 }
 
 export const getUrls = async (req, res) => {
+    const page = req.query.p || 0;
+    const urlsPerPage = 10;
     try {
-        const data = await url.find();
+        const data = await url.find().skip(page * urlsPerPage).limit(urlsPerPage);
         const result = data.map(({ longUrl, shortUrl }) => ({ longUrl, shortUrl }));
         res.status(200).json(result);
     } catch (error) {
